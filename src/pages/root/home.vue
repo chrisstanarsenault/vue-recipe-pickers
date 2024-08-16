@@ -8,7 +8,7 @@
 </template>
 
 <script setup lang='ts'>
-import { ref, onMounted, type PropType } from 'vue'
+import { ref, onMounted } from 'vue'
 import gql from 'graphql-tag'
 import { useQuery } from '@vue/apollo-composable'
 import { db } from '#firebase'
@@ -36,7 +36,7 @@ onMounted(async () => {
     const recipes: RecipeType[] = []
 
     querySnapshot.forEach((doc) => {
-      recipes.push(doc.data() as RecipeType)
+      recipes.push({ id: doc.id, name: doc.data().name, hellofresh: doc.data().hellofresh })
     })
 
     fetchedAllRecipes.value = recipes
