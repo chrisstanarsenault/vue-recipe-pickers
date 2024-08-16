@@ -23,6 +23,9 @@
       "#assets": [
         "./src/assets"
       ],
+      "#firebase": [
+        "./src/firebase"
+      ],
       "#components": [
         "./src/components"
       ],
@@ -54,3 +57,80 @@
     }
   ]
 }
+// {
+//   "compilerOptions": {
+//     "target": "esnext",
+//     "module": "esnext",
+//     "skipLibCheck": true,
+//     "noImplicitAny": false,
+//     "moduleResolution": "node",
+//     "strict": true,
+//     "jsx": "preserve",
+//     "sourceMap": true,
+//     "resolveJsonModule": true,
+//     "esModuleInterop": true,
+//     "lib": [
+//       "esnext",
+//       "dom"
+//     ],
+//     "paths": {
+//       "#abi": [
+//         "./src/abi"
+//       ],
+//       "#assets": [
+//         "./src/assets"
+//       ],
+//       "#components": [
+//         "./src/components"
+//       ],
+//       "#composables": [
+//         "./src/composables"
+//       ],
+//       "#constants": [
+//         "./src/constants"
+//       ],
+//       "#graphql/types/*": [
+//         "./src/graphql/__generated__/*"
+//       ],
+//       "#queries/*": [
+//         "./src/graphql/queries/*"
+//       ],
+//       "#mutations/*": [
+//         "./src/graphql/mutations/*"
+//       ],
+//       "#subscriptions/*": [
+//         "./src/graphql/subscriptions/*"
+//       ],
+//       "#pages": [
+//         "./src/pages"
+//       ],
+//       "#utils": [
+//         "./src/utils"
+//       ],
+//       "#types": [
+//         "./src/types"
+//       ],
+//       "#*": [
+//         "./src/*"
+//       ]
+//     },
+//     "types": [
+//       "vite/client",
+//       "node",
+//       "vite-plugin-pwa/client"
+//     ]
+//   },
+//   "include": [
+//     "src/**/*.ts",
+//     "src/**/*.mdx",
+//     "src/**/*.d.ts",
+//     "src/**/*.tsx",
+//     "src/**/*.vue",
+//     "decs.d.ts",
+//     "env.d.ts"
+//   ],
+//   "exclude": [
+//     "cypress",
+//     "src/heap.ts"
+//   ]
+// }
