@@ -1,8 +1,8 @@
 <template>
-  <div class="flex flex-col items-center space-y-20">
-    <h1 class="text-4xl">
+  <div class="flex flex-col items-center space-y-16">
+    <h2 class="text-4xl">
       Recipe Picker
-    </h1>
+    </h2>
 
     <div class="space-y-4">
       <div class="flex space-x-4">
@@ -13,7 +13,7 @@
         <input
           id="amountToChoose"
           v-model="amountToChoose"
-          class="w-16 border border-black"
+          class="w-16 border border-black pl-2"
           type="number"
           min="1"
           :max="fetchedAllRecipes.length"
@@ -27,13 +27,6 @@
         Pick recipes
       </button>
     </div>
-
-    <button
-      class="bg-black text-white px-4 py-2 rounded-full text-xl"
-      @click="toggleAddRecipe"
-    >
-      Add recipe
-    </button>
   </div>
 
 
@@ -51,42 +44,10 @@
       </div>
     </div>
   </div>
-
-  <div v-if="isAddingRecipe">
-    <label for="newRecipeName">
-      Recipe name
-    </label>
-
-    <input
-      id="newRecipeName"
-      v-model="newRecipeName"
-      class="border border-black"
-      type="text"
-    >
-
-    <label for="newRecipeHelloFresh">
-      Is this from HelloFresh
-    </label>
-
-    <input
-      id="newRecipeHelloFresh"
-      v-model="newRecipeHelloFresh"
-      type="checkbox"
-    >
-
-    <button
-      class="bg-black text-white px-4 py-2 rounded-full text-xl"
-      @click="addNewRecipe"
-    >
-      Add recipe
-    </button>
-  </div>
 </template>
 
 <script setup lang='ts'>
 import { ref, type PropType, watch } from 'vue'
-import { db } from '#firebase'
-import { collection, addDoc, deleteDoc } from 'firebase/firestore'
 import { RecipeType } from './types'
 
 const props = defineProps({
@@ -102,10 +63,7 @@ const props = defineProps({
 })
 
 const chosenRecipes = ref<RecipeType[]>([])
-const isAddingRecipe = ref(false)
 const amountToChoose = ref(1)
-const newRecipeName = ref('')
-const newRecipeHelloFresh = ref(false)
 
 const pickRecipes = (amount: number) => {
   chosenRecipes.value = []
@@ -119,27 +77,9 @@ const pickRecipes = (amount: number) => {
     } else {
       indexesUsed.push(randomIndex)
     }
+
     chosenRecipes.value.push(props.fetchedAllRecipes[randomIndex])
   }
-}
-
-const addNewRecipe = async () => {
-  try {
-    await addDoc(collection(db, 'recipes'), {
-      name: newRecipeName.value,
-      helloFresh: newRecipeHelloFresh.value,
-    })
-
-    newRecipeName.value = ''
-    newRecipeHelloFresh.value = false
-    isAddingRecipe.value = false
-  } catch (error) {
-    console.error('Error adding document: ', error)
-  }
-}
-
-const toggleAddRecipe = () => {
-  isAddingRecipe.value = !isAddingRecipe.value
 }
 
 watch(() => props.fetchedChosenRecipes, (fetchedChosenRecipes) => {
