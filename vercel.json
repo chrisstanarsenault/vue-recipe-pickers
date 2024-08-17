@@ -1,3 +1,8 @@
 {
-"rewrites": [{ "source": "/(.*)", "destination": "/pick-recipes" }]
+"rewrites": [
+  { "source": "/(.*)", "destination": "/" }
+],
+"redirects": [
+    { "source": "/", "destination": "/pick-recipes", "permanent": true }
+  ]
 }
