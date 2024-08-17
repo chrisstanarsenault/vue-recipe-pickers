@@ -21,12 +21,22 @@
           <div>Name: {{ recipe.name }}</div>
           <div>From HelloFresh: {{ recipe.hellofresh ? 'Yes' : 'No' }}</div>
 
-          <button
-            class="bg-black text-white px-3 py-1 rounded-full text-md mt-4 w-full"
-            @click="removeRecipe(recipe.id)"
-          >
-            Remove
-          </button>
+          <div class="mt-4 space-x-2">
+            <button
+              class="bg-black text-white px-3 py-1 rounded-full text-md"
+              @click="removeRecipe(recipe.id)"
+            >
+              Remove
+            </button>
+
+            <button
+              :to="{name: 'edit-recipe', params: { recipeId: recipe.id }}"
+              class="bg-black text-white px-3 py-1 rounded-full text-md"
+              @click="navigateToEditRecipe(recipe.id)"
+            >
+              Edit
+            </button>
+          </div>
         </li>
       </ol>
     </div>
@@ -35,6 +45,7 @@
 
 <script setup lang="ts">
 import { type PropType } from 'vue'
+import { useRouter } from 'vue-router'
 
 import { deleteDoc, doc } from 'firebase/firestore'
 import { db } from '#firebase'
@@ -48,7 +59,9 @@ const props = defineProps({
   },
 })
 
-const removeRecipe = async (recipeId: string) => {
-  await deleteDoc(doc(db, 'recipes', recipeId))
-}
+const router = useRouter()
+
+const removeRecipe = async (recipeId: string) => await deleteDoc(doc(db, 'recipes', recipeId))
+
+const navigateToEditRecipe = (id: string) => router.push({ name: 'edit-recipe', params: { recipeId: id } })
 </script>

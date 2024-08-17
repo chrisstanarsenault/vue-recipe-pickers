@@ -56,7 +56,7 @@
 
 <script setup lang='ts'>
 import { ref, type PropType, watch, computed } from 'vue'
-import { collection, doc,   updateDoc } from 'firebase/firestore'
+import { doc, updateDoc } from 'firebase/firestore'
 
 import { db } from '#firebase'
 
@@ -75,8 +75,15 @@ const props = defineProps({
 })
 
 const chosenRecipes = ref<RecipeType[]>([])
-const amountToChoose = ref(1)
 const showSaveButton = ref(false)
+
+const amountToChoose = computed(() => {
+  if (props.fetchedAllRecipes.length > 5) {
+    return 5
+  } else {
+    return props.fetchedAllRecipes.length
+  }
+})
 
 const currentListId = computed(() => {
   return props.fetchedChosenRecipes[0]?.id
@@ -102,8 +109,8 @@ const pickRecipes = (amount: number) => {
 }
 
 const saveChosenRecipes = () => {
-  console.log('chosenRecipes', chosenRecipes.value)
-
+  console.log('currentListId.value', currentListId.value)
+  console.log('chosenRecipes.value', chosenRecipes.value)
   updateDoc(doc(db, 'currentList', currentListId.value), {
     currentRecipes: chosenRecipes.value,
   })
@@ -111,10 +118,7 @@ const saveChosenRecipes = () => {
   showSaveButton.value = false
 }
 
-console.log('fetchedChosenRecipes', props.fetchedChosenRecipes)
-
 watch(() => props.fetchedChosenRecipes, (fetchedChosenRecipes) => {
-  console.log('fetchedChosenRecipes', fetchedChosenRecipes)
   chosenRecipes.value = fetchedChosenRecipes
 })
 </script>
