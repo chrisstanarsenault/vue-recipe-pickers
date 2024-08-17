@@ -42,12 +42,24 @@
       >
         {{ index + 1 }}. {{ recipe.name }}
       </div>
+
+      <button
+        v-if="showSaveButton"
+        class="bg-black text-white px-4 py-2 rounded-full text-xl mt-4"
+        @click="saveChosenRecipes"
+      >
+        Save recipes
+      </button>
     </div>
   </div>
 </template>
 
 <script setup lang='ts'>
-import { ref, type PropType, watch } from 'vue'
+import { ref, type PropType, watch, computed } from 'vue'
+import { collection, doc,   updateDoc } from 'firebase/firestore'
+
+import { db } from '#firebase'
+
 import { RecipeType } from './types'
 
 const props = defineProps({
@@ -64,6 +76,11 @@ const props = defineProps({
 
 const chosenRecipes = ref<RecipeType[]>([])
 const amountToChoose = ref(1)
+const showSaveButton = ref(false)
+
+const currentListId = computed(() => {
+  return props.fetchedChosenRecipes[0]?.id
+})
 
 const pickRecipes = (amount: number) => {
   chosenRecipes.value = []
@@ -80,9 +97,24 @@ const pickRecipes = (amount: number) => {
 
     chosenRecipes.value.push(props.fetchedAllRecipes[randomIndex])
   }
+
+  showSaveButton.value = true
 }
 
+const saveChosenRecipes = () => {
+  console.log('chosenRecipes', chosenRecipes.value)
+
+  updateDoc(doc(db, 'currentList', currentListId.value), {
+    currentRecipes: chosenRecipes.value,
+  })
+
+  showSaveButton.value = false
+}
+
+console.log('fetchedChosenRecipes', props.fetchedChosenRecipes)
+
 watch(() => props.fetchedChosenRecipes, (fetchedChosenRecipes) => {
+  console.log('fetchedChosenRecipes', fetchedChosenRecipes)
   chosenRecipes.value = fetchedChosenRecipes
 })
 </script>

@@ -42,5 +42,21 @@ onMounted(async () => {
 
     fetchedAllRecipes.value = recipes
   })
+
+  onSnapshot(collection(db, 'currentList'), (querySnapshot) => {
+    const list: RecipeType[] = []
+    let id = ''
+
+    querySnapshot.forEach((doc) => {
+      id = doc.id
+
+      const data = doc.data()
+      data.currentRecipes.forEach((recipe: RecipeType) => {
+        list.push({ id, name: recipe.name, hellofresh: recipe.hellofresh })
+      })
+    })
+
+    fetchedChosenRecipes.value = list
+  })
 })
 </script>
