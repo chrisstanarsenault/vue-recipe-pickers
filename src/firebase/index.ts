@@ -8,13 +8,13 @@ import { getFirestore } from 'firebase/firestore'
 // Your web app's Firebase configuration
 // For Firebase JS SDK v7.20.0 and later, measurementId is optional
 const firebaseConfig = {
-  apiKey: 'AIzaSyByjnlNpMYZnX2sZZqjF5Jyqg3N0gDrcys',
-  authDomain: 'vue-recipe-picker.firebaseapp.com',
-  projectId: 'vue-recipe-picker',
-  storageBucket: 'vue-recipe-picker.appspot.com',
-  messagingSenderId: '651479157251',
-  appId: '1:651479157251:web:e024c7989c7b77d6355c36',
-  measurementId: 'G-BW253LPC6K',
+  apiKey: process.env.firebase_apiKey,
+  authDomain: process.env.firebase_authDomain,
+  projectId: process.env.firebase_projectId,
+  storageBucket: process.env.firebase_storageBucket,
+  messagingSenderId: process.env.firebase_messagingSenderId,
+  appId: process.env.firebase_appId,
+  measurementId: process.env.firebase_measurementId,
 }
 
 // Initialize Firebase
