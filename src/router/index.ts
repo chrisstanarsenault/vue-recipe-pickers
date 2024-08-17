@@ -3,6 +3,7 @@ import { createRouter, createWebHistory } from 'vue-router'
 import Home from '#pages/root/home.vue'
 import AllRecipes from '#pages/root/all-recipes.vue'
 import RecipePicker from '#pages/root/recipe-picker.vue'
+import AddRecipe from '#pages/root/add-recipe.vue'
 
 const router = createRouter({
   history: createWebHistory(import.meta.env.BASE_URL),
@@ -19,9 +20,14 @@ const router = createRouter({
           component: AllRecipes,
         },
         {
-          path: 'recipe-picker',
-          name: 'recipe-picker',
+          path: 'pick-recipes',
+          name: 'pick-recipes',
           component: RecipePicker,
+        },
+        {
+          path: 'add-recipe',
+          name: 'add-recipe',
+          component: AddRecipe,
         },
       ],
     },

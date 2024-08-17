@@ -15,9 +15,10 @@
           v-model="amountToChoose"
           class="w-16 border border-black"
           type="number"
+          min="1"
+          :max="fetchedAllRecipes.length"
         >
       </div>
-
 
       <button
         class="bg-black text-white px-4 py-2 rounded-full text-xl w-full"
@@ -102,7 +103,7 @@ const props = defineProps({
 
 const chosenRecipes = ref<RecipeType[]>([])
 const isAddingRecipe = ref(false)
-const amountToChoose = ref(4)
+const amountToChoose = ref(1)
 const newRecipeName = ref('')
 const newRecipeHelloFresh = ref(false)
 

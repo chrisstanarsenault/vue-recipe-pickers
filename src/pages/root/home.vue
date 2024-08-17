@@ -11,9 +11,10 @@
 import { ref, onMounted } from 'vue'
 import gql from 'graphql-tag'
 import { useQuery } from '@vue/apollo-composable'
+import { onSnapshot, collection } from 'firebase/firestore'
+
 import { db } from '#firebase'
-import { onSnapshot, collection, addDoc, deleteDoc } from 'firebase/firestore'
-import { RouterView } from 'vue-router'
+
 import type { RecipeType } from './types'
 
 const fetchedChosenRecipes = ref<RecipeType[]>([])
