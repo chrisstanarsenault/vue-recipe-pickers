@@ -86,8 +86,10 @@ const currentListId = computed(() => {
 const setDefaultAmount = () => {
   if (props.fetchedAllRecipes.length > 5) {
     amountToChoose.value = 5
-  } else {
+  } else if (props.fetchedAllRecipes.length > 0) {
     amountToChoose.value = props.fetchedAllRecipes.length
+  } else {
+    amountToChoose.value = 1
   }
 }
 
@@ -122,7 +124,9 @@ watch(() => props.fetchedChosenRecipes, (fetchedChosenRecipes) => {
   chosenRecipes.value = fetchedChosenRecipes
 })
 
-onMounted(() => {
-  setDefaultAmount()
+watch(() => props.fetchedAllRecipes, (fetchedAllRecipes) => {
+  if (fetchedAllRecipes.length) {
+    setDefaultAmount()
+  }
 })
 </script>
